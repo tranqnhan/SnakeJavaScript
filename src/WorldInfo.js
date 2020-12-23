@@ -1,6 +1,6 @@
 const WorldInfo = {
-    width: 160,
-    height: 160,
+    width: 320,
+    height: 320,
     cellSize: 16,
     noneCell: 0,
     foodCell: 1,

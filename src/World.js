@@ -26,8 +26,8 @@ class World extends Phaser.Scene {
     update(time, delta) {
         if (!this.snake.death) {
             this.frameTime += delta;
-            if (this.frameTime >= 400) {
-                this.frameTime = this.frameTime - 400;
+            if (this.frameTime >= 100) {
+                this.frameTime = this.frameTime - 100;
                 this.snake.update(this);
                 this.updateMap();
                 this.updateSquare();
