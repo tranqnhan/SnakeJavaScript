@@ -1,5 +1,5 @@
 import { Block } from './Block.js';
-import WorldInfo from './WorldInfo.js';
+import { gameOver, updateLength } from './HTMLUpdate.js';
 
 export class Snake {
     constructor(scene) {
@@ -9,17 +9,23 @@ export class Snake {
         this.queueXDir = 0;
         this.queueYDir = 0;
 
-        const head = new Block(scene, 5, 2, 0x3BB143);
+        const head = new Block(scene, 1, 1, 0x3BB143);
         this.blocks = [head];
-        this.length = 4;
+        this.length = 1;
         this.death = false;
 
         //console.log("Snake created!");
-        //WASD D62424
+        //WASD
         scene.input.keyboard.on('keydown-W', (event) => { this.queueDirection(0, -1); });
         scene.input.keyboard.on('keydown-A', (event) => { this.queueDirection(-1, 0); });
         scene.input.keyboard.on('keydown-S', (event) => { this.queueDirection(0, 1); });
         scene.input.keyboard.on('keydown-D', (event) => { this.queueDirection(1, 0); });
+
+        //Arrow Keys
+        scene.input.keyboard.on('keydown-UP', (event) => { this.queueDirection(0, -1); });
+        scene.input.keyboard.on('keydown-LEFT', (event) => { this.queueDirection(-1, 0); });
+        scene.input.keyboard.on('keydown-DOWN', (event) => { this.queueDirection(0, 1); });
+        scene.input.keyboard.on('keydown-RIGHT', (event) => { this.queueDirection(1, 0); });
     }
 
 
@@ -39,14 +45,33 @@ export class Snake {
 
     grow() {
         this.length += 1;
+        updateLength(this.length);
     }
 
     die() {
         this.death = true;
+        gameOver(this.length);
+    }
+
+    isHeadOverlapBody() {
+        for (var i = 1; i < this.blocks.length; i++) {
+            if (this.blocks[0].equals(this.blocks[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    isCellOverlapBody(cellX, cellY) {
+        for (var i = 0; i < this.blocks.length; i++) {
+            if (cellX == this.blocks[i].cellX && cellY == this.blocks[i].cellY) {
+                return true;
+            }
+        }
+        return false;
     }
 
     update(scene) {
-
         this.changeDirection(this.queueXDir, this.queueYDir);
 
         if (!(this.xDir == 0 && this.yDir == 0)) {
@@ -62,7 +87,6 @@ export class Snake {
                 const nextBlock = this.blocks[i - 1];
                 this.blocks[i].goto(nextBlock.cellX, nextBlock.cellY);
             }
-
 
             this.blocks[0].move(this.xDir, this.yDir);
         }

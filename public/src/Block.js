@@ -2,7 +2,6 @@ import WorldInfo from './WorldInfo.js';
 
 export class Block {
     constructor(scene, cellX, cellY, color) {
-        //console.log("Block created at " + cellX + " " + cellY);
         this.block = scene.add.rectangle(
             (cellX + .5) * WorldInfo.cellSize,
             (cellY + .5) * WorldInfo.cellSize,

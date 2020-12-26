@@ -1,0 +1,54 @@
+.length {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#input-box {
+    width: 300px;
+    height: 160px;
+    padding: 5px 20px 20px 10px;
+    position: absolute;
+    left: 182px;
+    top: 251px;
+    box-sizing: border-box;
+    background: #3BB143;
+    border: 5px solid #0D98BA;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#input-box input {
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    border: none;
+}
+
+.standard {
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.standard:hover {
+    background-color: #d62424;
+    color: white;
+}
+
+#replay {
+    position: absolute;
+    left: 280px;
+    top: 560px;
+    width: 100px;
+}
+
+#submit {
+    position: relative;
+    left: 100px;
+}
