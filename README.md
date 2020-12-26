@@ -10,3 +10,4 @@ Website: https://snake-javascript-c0fa5.web.app/
 - Visual Studio Code - IDE
 - Firebase Hosting - Web Hosting Service
 - Firebase Firestore - NoSQL Cloud Database
+- Phaser 3 - Game Framework
