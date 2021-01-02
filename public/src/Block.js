@@ -5,7 +5,7 @@ export class Block {
         this.block = scene.add.rectangle(
             (cellX + .5) * WorldInfo.cellSize,
             (cellY + .5) * WorldInfo.cellSize,
-            WorldInfo.cellSize, WorldInfo.cellSize, color );
+            WorldInfo.cellSize, WorldInfo.cellSize, color, .8 );
         this.cellX = cellX;
         this.cellY = cellY;
     }

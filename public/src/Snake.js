@@ -9,10 +9,14 @@ export class Snake {
         this.queueXDir = 0;
         this.queueYDir = 0;
 
-        const head = new Block(scene, 1, 1, 0x3BB143);
-        this.blocks = [head];
+        this.head = new Block(scene, 1, 1, 0x3BB143);
+        scene.removeEmptyCell(this.head.cellX, this.head.cellY);
+
+        this.blocks = [];
         this.length = 1;
         this.death = false;
+
+        updateLength(this.length);
 
         //console.log("Snake created!");
         //WASD
@@ -26,8 +30,8 @@ export class Snake {
         scene.input.keyboard.on('keydown-LEFT', (event) => { this.queueDirection(-1, 0); });
         scene.input.keyboard.on('keydown-DOWN', (event) => { this.queueDirection(0, 1); });
         scene.input.keyboard.on('keydown-RIGHT', (event) => { this.queueDirection(1, 0); });
-    }
 
+    }
 
     queueDirection(x, y) {
         this.queueXDir = x;
@@ -62,33 +66,26 @@ export class Snake {
         return false;
     }
 
-    isCellOverlapBody(cellX, cellY) {
-        for (var i = 0; i < this.blocks.length; i++) {
-            if (cellX == this.blocks[i].cellX && cellY == this.blocks[i].cellY) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     update(scene) {
         this.changeDirection(this.queueXDir, this.queueYDir);
 
         if (!(this.xDir == 0 && this.yDir == 0)) {
+            scene.addEmptyCell(this.head.cellX, this.head.cellY);
             // If the number of blocks != length, add new block
-            if (this.blocks.length < this.length) {
-                const curLength = this.blocks.length;
-                const lastBlock = this.blocks[curLength - 1];
-                this.blocks.push(new Block(scene, lastBlock.cellX, lastBlock.cellY, 0x3BB143));
+            if (this.blocks.length < this.length - 1) {
+                const newBlock = new Block(scene, this.head.cellX, this.head.cellY, 0x3BB143);
+                this.blocks.unshift(newBlock);
+                scene.removeEmptyCell(newBlock.cellX, newBlock.cellY);
             }
-
-            // Move the blocks position to the block position infront
-            for (var i = this.blocks.length - 1; i > 0; i--) {
-                const nextBlock = this.blocks[i - 1];
-                this.blocks[i].goto(nextBlock.cellX, nextBlock.cellY);
+            else if (this.blocks.length > 0) {
+                const lastBlock = this.blocks.pop();
+                scene.addEmptyCell(lastBlock.cellX, lastBlock.cellY);
+                lastBlock.goto(this.head.cellX, this.head.cellY);
+                scene.removeEmptyCell(this.head.cellX, this.head.cellY);
+                this.blocks.unshift(lastBlock);
             }
-
-            this.blocks[0].move(this.xDir, this.yDir);
+            this.head.move(this.xDir, this.yDir);
+            scene.removeEmptyCell(this.head.cellX, this.head.cellY);
         }
     }
 }
