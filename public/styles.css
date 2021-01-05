@@ -1,30 +1,43 @@
-.length {
-    font-family: 'Montserrat', sans-serif;
+body {
+    margin: 15px;
 }
 
+/* Game - Flex Box */
+#game {
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    flex-direction: column;
+}
+
+/* Default text */
+p {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+    margin-top: 0px;
+}
+
+/* Input Box - Flex Box */
 #input-box {
-    width: 300px;
-    height: 160px;
-    padding: 5px 20px 20px 10px;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
     position: absolute;
-    left: 182px;
-    top: 251px;
+    align-self: center;
     box-sizing: border-box;
     background: #3BB143;
     border: 5px solid #0D98BA;
-    font-family: 'Montserrat', sans-serif;
 }
 
 #input-box input {
-    margin: 0px 0px 10px 0px;
-    width: 100%;
-    padding: 10px 5px;
+    padding: 10px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     border: none;
 }
 
+/* Buttons */
 .standard {
     border: none;
     font-family: 'Montserrat', sans-serif;
@@ -41,14 +54,15 @@
     color: white;
 }
 
-#replay {
-    position: absolute;
-    left: 280px;
-    top: 560px;
-    width: 100px;
-}
-
 #submit {
     position: relative;
-    left: 100px;
+    align-self: center;
+    margin-top: 15px;
+}
+
+#replay {
+    display: none;
+    position: absolute;
+    align-self: center;
+    top: 560px;
 }

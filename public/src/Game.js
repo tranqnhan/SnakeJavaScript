@@ -20,7 +20,11 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene: [World, Leaderboard]
+    scene: [World, Leaderboard],
+    fps: {
+        target: 20,
+        forceSetTimeOut: true
+    }
 
 };
 

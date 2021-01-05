@@ -12,14 +12,16 @@ class Leaderboard extends Phaser.Scene {
     }
 
     create() {
+        const styles = this.setUpBoard();
+
         this.highscoresDatabase.get().then((snapshot) => {
             const result = this.compareHighscore(snapshot.docs);
             if (result != null) {
                 result.then(() => {
-                    this.displayHighscores();
+                    this.displayHighscores(styles);
                 }) 
             } else {
-                this.displayHighscores();
+                this.displayHighscores(styles);
             }
         }).catch((error) => {
             console.error("Something went wrong while trying to get highscores: ", error);
@@ -52,7 +54,7 @@ class Leaderboard extends Phaser.Scene {
         })
     }
 
-    displayHighscores() {
+    setUpBoard() {
         //Setting up cosmetics
         //Setting up title
         const leaderboardTitle = this.add.text(0, 0, 'Leaderboard', { fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', fontSize: '32px' });
@@ -74,7 +76,7 @@ class Leaderboard extends Phaser.Scene {
         const lengthSubTitle = this.add.text(0, 0, 'Length', subtitleFont);
         lengthSubTitle.setPosition(WorldInfo.width - lengthSubTitle.width - padding, relativeOriginY + padding);
 
-        //Displaying highscores
+        //Displaying highscores styles
         const highscoreFont = { fontFamily: 'Montserrat, sans-serif', fontSize: '16px' };
 
         const rankCenterX = padding + rankSubTitle.width / 2;
@@ -85,6 +87,12 @@ class Leaderboard extends Phaser.Scene {
 
         const lengthCenterX = lengthSubTitle.x + lengthSubTitle.width / 2;
         const lengthCenterY = padding + relativeOriginY + lengthSubTitle.height;
+
+        return { padding, highscoreFont, rankCenterX, rankCenterY, nameCenterX, nameCenterY, lengthCenterX, lengthCenterY };
+    }
+
+    displayHighscores(styles) {
+        const { padding, highscoreFont, rankCenterX, rankCenterY, nameCenterX, nameCenterY, lengthCenterX, lengthCenterY } = styles;
 
         //Getting highscores and sort
         const highscores = [];

@@ -24,14 +24,10 @@ class World extends Phaser.Scene {
         this.spawnFood();
     }
 
-    update(time, delta) {
+    update() {
         if (!this.snake.death) {
-            this.frameTime += delta;
-            if (this.frameTime >= 60) {
-                this.frameTime = this.frameTime - 60;
-                this.snake.update(this);
-                this.updateSquare();
-            }
+            this.snake.update(this);
+            this.updateSquare();
         }
     }
 
